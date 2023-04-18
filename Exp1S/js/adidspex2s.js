@@ -135,19 +135,19 @@ b43 = new LeaderLine(b4, LeaderLine.pointAnchor(b3, {x: '0%', y: '80%'}),
     stsa[index]=A2*Math.sin(2*Math.PI*fre3*item);
   };
 
-   var r = 0
-   var L=2^r
-   var Vmin=Math.min$("#av").val();
-   var vmax= Math.max$("#av").val();
-   var delta= (vmax-vmin)/L;
-   console.log(vmax);
+  //  var r = 0
+  //  var L=2^r
+  //  var Vmin=Math.min$("#av").val();
+  //  var vmax= Math.max$("#av").val();
+  //  var delta= (vmax-vmin)/L;
+  //  console.log(vmax);
    
-   var I=Math.round((V[i]-Vmin)/delta)
+  //  var I=Math.round((V[i]-Vmin)/delta)
 
-   Vq = Vmin+delta*I(i)
-   function quant(item,index) {
-  stqa[index]=Vmin+delta*I(i).sin(2*Math.PI*fre3*item);//quant function added 
-  };
+  //  Vq = Vmin+delta*I(i)
+  //  function quant(item,index) {
+  // stqa[index]=Vmin+delta*I(i).sin(2*Math.PI*fre3*item);//quant function added 
+  // };
   
   function plt(cha){
     st=[];
