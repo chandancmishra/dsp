@@ -227,7 +227,7 @@ b43 = new LeaderLine(b4, LeaderLine.pointAnchor(b3, {x: '0%', y: '80%'}),
                 };var op2 = {
                   x: ti2,
                   y: stqa,
-                  type: 'scatter',
+                  type: 'bar',
                   name: 'Output(Vq)',
                   marker: {
                     symbol: 'circle',
