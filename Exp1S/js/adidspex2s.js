@@ -93,17 +93,20 @@ b43 = new LeaderLine(b4, LeaderLine.pointAnchor(b3, {x: '0%', y: '80%'}),
   var clp=0;
   var st=[];
   var stsa=[];
-  // var stqa=[];
+  var stqa=[];
   var A1=0;
   var A2=0;
   var fm=0;
   var fs=0;
+  var nb=0;
   var fre1=0;
   var fre2=0;
   var fre3=0;
-  var L =0
-  var r =0
-  var delta =0
+  var L =0;
+  var vmax =0;
+  var vmin =0;
+  var deta =0;
+
   function rng(start,len,end) {
       var ans = [];
       for (var i = start; i < len; i++) {
@@ -135,23 +138,24 @@ b43 = new LeaderLine(b4, LeaderLine.pointAnchor(b3, {x: '0%', y: '80%'}),
     stsa[index]=A2*Math.sin(2*Math.PI*fre3*item);
   };
 
-   var r = 0
-   var L=2^r
-   const Vmin=Math.min$("#av").val();
+ /*   var r = 0
+   var L=Math.pow(2,r);
+   const vmin=Math.min$("#av").val();
    const vmax= Math.max$("#av").val();
    const delta= (vmax-vmin)/L;
    
    
    function qua(i,delta){
 
-    var I=Math.round((V[i]-Vmin)/delta)
-    Vq = Vmin+delta*I(i)
+    var I=Math.round((V[i]-vmin)/delta)
+    var Vq = Vmin+delta*I(i)
 
-   };
+   }; */
    
   
    function quant(item,index) {
-  stqa[index]=(Vmin+delta*I(i)*item);//quant function added 
+   var I=Math.round((stsa[index]-vmin)/deta);
+    stqa[index]=(vmin+deta*I);//quant function added 
   };
   
   function plt(cha){
@@ -161,6 +165,7 @@ b43 = new LeaderLine(b4, LeaderLine.pointAnchor(b3, {x: '0%', y: '80%'}),
     var amp= $("#av").val();
     fm= $("#fv").val();
     fs= $("#fsv").val();
+    nb= $("#nbv").val();
     var vc1= $("#vc1v").val();
     var t1= $("#t1v").val();
     var px1= $("#px1v").val();
@@ -170,6 +175,10 @@ b43 = new LeaderLine(b4, LeaderLine.pointAnchor(b3, {x: '0%', y: '80%'}),
     var px2= $("#px2v").val();
     var py2= $("#py2v").val();
     var len=1000;
+    L=Math.pow(2,nb);
+    vmin=-amp;
+    vmax=amp;
+    deta= (vmax-vmin)/L;
                 A1=amp/vc1;
                 A2=amp/vc2;
                 fre1=fm*t1;
@@ -180,9 +189,10 @@ b43 = new LeaderLine(b4, LeaderLine.pointAnchor(b3, {x: '0%', y: '80%'}),
                 zeros = new Array(n.length).fill(0);
                 tim1.forEach(sinc);
                 n.forEach(samp);
-                SQ.forEach(quant);
+                n.forEach(quant);
                 st= po(st,py1);
                 stsa= po(stsa,py2);
+                stqa=po(stqa,py2);
                 var ti1= po(tim1,px1);
                 var ti2= po(n,px2);
                 // var ti3= po(n,px3);
@@ -214,6 +224,25 @@ b43 = new LeaderLine(b4, LeaderLine.pointAnchor(b3, {x: '0%', y: '80%'}),
                     arrayminus: stsa, // re-use y values
                     width: 0 // hide cross-bars at end of error bars
                   }
+                };var op2 = {
+                  x: ti2,
+                  y: stqa,
+                  type: 'scatter',
+                  name: 'Output(Vq)',
+                  marker: {
+                    symbol: 'circle',
+                    size: 5
+                  }
+                  /* ,line: {width:0},
+                  //hoverinfo: 'x+text', // The default configuration would print "16 +0/-16"...
+                  //hovertext: y.map(Plotly.d3.format('.2 ')), // ... so we redefine the text
+                  error_y: {
+                    type: 'data',
+                    symmetric: false,
+                    array: zeros, // use zero-filled array
+                    arrayminus: stqa, // re-use y values
+                    width: 0 // hide cross-bars at end of error bars
+                  } */
                 };
 
                     if(cha=='1'){
@@ -235,8 +264,8 @@ b43 = new LeaderLine(b4, LeaderLine.pointAnchor(b3, {x: '0%', y: '80%'}),
                       };
                     }
                     else if(cha=='2'){
-                      var data = [op1];
-                      var layout={title: 'Sampled signal (Vo)', plot_bgcolor: 'black',paper_bgcolor:'black',
+                      var data = [op2];
+                      var layout={title: 'Quantized signal (Vq)', plot_bgcolor: 'black',paper_bgcolor:'black',
                       font: {
                         family: 'Courier New, monospace',
                         size: 18,
@@ -271,7 +300,7 @@ b43 = new LeaderLine(b4, LeaderLine.pointAnchor(b3, {x: '0%', y: '80%'}),
                       };
                     }
                       else if(cha=='4'){
-                        var data = [in1,op1];
+                        var data = [in1,op1,op2];
                         var layout={title: 'Quantisatisation plot',plot_bgcolor:'black', paper_bgcolor:'black',text_color:'blue',
                         font: {
                           family: 'Courier New, monospace',
@@ -283,7 +312,7 @@ b43 = new LeaderLine(b4, LeaderLine.pointAnchor(b3, {x: '0%', y: '80%'}),
                           showticklabels: false,
                           autotick: true},
                           yaxis: {
-                            title:'Vi/Vo (V)',
+                            title:'Vq (V)',
                             showticklabels: true,
                             autotick: true}
                         };
@@ -315,6 +344,7 @@ $(document).ready(function(){
     $("#vi").text($("#av").val());
     $("#f").text($("#fv").val());
     $("#fs").text($("#fsv").val());
+    $("#nb").text($("#nbv").val());
     $("#vc1").text($("#vc1v").val());
     $("#t1").text($("#t1v").val());
     $("#px1").text($("#px1v").val());
@@ -378,6 +408,11 @@ $(document).ready(function(){
     });
     $("#fsv").change(function(){
       $("#fs").text($("#fsv").val());
+      plt(ch);
+    });
+    
+    $("#nbv").change(function(){
+      $("#nb").text($("#nbv").val());
       plt(ch);
     });
     $("#vc1v").change(function(){

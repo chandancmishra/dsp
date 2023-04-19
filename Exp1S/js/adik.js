@@ -1,6 +1,7 @@
 new Knob(document.getElementById('av'), new Ui.P1());
 new Knob(document.getElementById('fv'), new Ui.P1());
 new Knob(document.getElementById('fsv'), new Ui.P1());
+new Knob(document.getElementById('nbv'), new Ui.P1());
 
 new Knob(document.getElementById('vc1v'), new Ui.P1());
 new Knob(document.getElementById('t1v'),  new Ui.P1());
