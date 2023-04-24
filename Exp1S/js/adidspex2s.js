@@ -133,11 +133,11 @@ b43 = new LeaderLine(b4, LeaderLine.pointAnchor(b3, {x: '0%', y: '80%'}),
   function sinc(item,index) {
     st[index]=A1*Math.sin(2*Math.PI*fre1*item);
   };
-  
+
   function samp(item,index) {
     stsa[index]=A2*Math.sin(2*Math.PI*fre3*item);
   };
-
+ 
  /*   var r = 0
    var L=Math.pow(2,r);
    const vmin=Math.min$("#av").val();
@@ -178,7 +178,7 @@ b43 = new LeaderLine(b4, LeaderLine.pointAnchor(b3, {x: '0%', y: '80%'}),
     L=Math.pow(2,nb);
     vmin=-amp;
     vmax=amp;
-    deta= (vmax-vmin)/L;
+    deta= (vmax-vmin)/(L-1);
                 A1=amp/vc1;
                 A2=amp/vc2;
                 fre1=fm*t1;
@@ -197,6 +197,7 @@ b43 = new LeaderLine(b4, LeaderLine.pointAnchor(b3, {x: '0%', y: '80%'}),
                 var ti2= po(n,px2);
                 // var ti3= po(n,px3);
                 // var ti3= po(n,px3);
+                // console.log(item);
                 gr = document.getElementById('grph');
                 var in1 = {
                   x: ti1,
@@ -226,8 +227,9 @@ b43 = new LeaderLine(b4, LeaderLine.pointAnchor(b3, {x: '0%', y: '80%'}),
                   }
                 };var op2 = {
                   x: ti2,
+                  // x: ti2,
                   y: stqa,
-                  type: 'bar',
+                  type: 'line',
                   name: 'Output(Vq)',
                   marker: {
                     symbol: 'circle',
