@@ -1,2 +1,2 @@
 # dsp
-dsp sampling and quantization
+Dsp sampling and quantization
